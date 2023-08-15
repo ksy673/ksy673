@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http//www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/main}"
+>
+
+<th:block layout:fragment="content">
+<div class="boardContainer">
+	<div class="body">
+		<div>
+			<h1>회원가입</h1>
+		</div>
+		<form action="/user/join" method = "post">
+			<table class="table board">
+				<thead>
+					<tr>
+						<td>회원가입</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+					<td><label for = "user_id"><span>아이디</span></label>
+					<input type="text" id = "user_id" name="userId"></td>
+					<div id = "idCheck"></div>
+					</tr>
+					<tr>
+						<td><label for = "Password"><span>비밀번호</span></label>
+						<input type="password" id="Password" name="userPassword"></td>
+						<div id = "pwCheck"></div>
+					</tr>
+					<tr>
+						<td><label for = "Password"><span>비밀번호 체크</span></label>
+						<input type="password" id="Password2"></td>
+						<div id = "pwOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "User_name"><span>이름</span></label>
+						<input type="text" id = "User_name" name="userName"></td>
+						<div id = "nameOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "address"><span>주소</span></label> 
+						<input type="text" id = "address" name="address"></td>
+					</tr>
+					<tr>
+						<td><label for = "phone"><span>핸드폰</span></label> 
+						<input type="text" id = "phone" name="phone"></td>
+						<div id = "phoneOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "email"><span>이메일</span></label>
+						<input type="text" id = "email" name="email"></td>
+					</tr>
+				</tbody>
+			</table>
+			<button type='button' onclick = "join();">가입</button>
+			<input type="button" id = "back_btn" value="취소">
+		</form>
+	</div>
+	
+</div>
+<script th:inline="javascript">
+
+$(function(){
+	$("#back_btn").click(function(){
+		location.href = "/";
+	});
+		// 이름 정규식
+	var namereg = /^[가-힣]{2,5}$/
+	//모든 공백 체크 정규식
+	var empJ = /\s/g;
+	//아이디 정규식
+	var idreg = /^[a-z0-9]{4,12}$/;
+	// 비밀번호 정규식
+	var pwreg = /^[A-Za-z0-9]{4,12}$/;
+	// 핸드폰 정규식
+	var phonereg = /^[0-9]+/g;
+	// 주소 정규식
+	var addressreg = /^[A-Za-z0-9가-힣\s]{1,25}$/;
+	// 이메일 검사 정규식
+	var emailreg = /^[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
+	var idvalid = false;
+	var pwvalid = false;
+	var namevalid = false;
+	var addressvalid = false;
+	var phonevalid = false;
+	var emailvalid = false;
+	
+	$("#user_id").keyup(function(){
+		var id = document.getElementById('user_id').value;
+		
+		if(idreg.test(id)){
+			$.ajax({
+			url : "/user/idCheck",
+			type : "GET",
+			data : {
+				"userId" : id
+			},
+			success : function(data){
+				if (data == "yes"){
+					document.getElementById('idCheck').innerHTML = "";
+					idvalid = true;
+				} else{
+					document.getElementById('idCheck').innerHTML = "중복된 ID가 존재합니다.";
+					document.getElementById('idCheck').style.color = "red";
+					idvalid = false;
+				}
+			}
+		});
+			
+		}else{
+			$("#idCheck").html('아이디는 최소 4글자 최대 12글자로 입력해주세요.');
+			$("#idCheck").css('color', 'red');
+			return false;
+		}
+	});
+	
+	$("#Password").keyup(function(){
+			var pw = document.getElementById('Password').value;
+			if(pwreg.test(pw)){
+				$("#pwCheck").html("");
+				pwvalid = true;
+			}else{
+				$("#pwCheck").html("비밀번호는 최소 4글자 최대 16글자로 입력해주세요.");
+				$('#pwCheck').css('color', 'red');
+				pwvalid = false;
+			}
+		});
+		
+	$("#Password2").keyup(function () {
+		var pw = document.getElementById('Password').value;
+		var pw2 = document.getElementById('Password2').value;
+
+		if (pw == pw2) {
+			$("#pwOver").html("");
+			pwOver = true;
+		} else {
+			$("#pwOver").html("비밀번호를 동일하게 입력하세요.");
+			$('#pwOver').css('color', 'red');
+			pwOver = false;
+		}
+	});
+	$("#User_name").keyup(function() {
+        var name = $('#user_name').val();
+
+        if (namereg.test(name)) {
+            $("#nameOver").html("");
+            namevalid = true;
+        } else {
+            $("#nameOver").html('이름은 3글자에서 4글자 사이로 입력해주세요.');
+            $("#nameOver").css('color', 'red');
+            namevalid = false;
+        }
+    });
+	$("#phone").keyup(function() {
+        if (phonereg.test($("#phone").val())) {
+            $("#phoneOver").html('');
+            phone = true;
+        } else {
+            $("#phoneOver").html("공백 또는'-'없이 숫자로 입력해주세요.");
+            $("#phoneOver").css('color', 'red');
+            phone = false;
+        }
+    });
+});
+
+// 유효성 검사
+function isValid(){
+	if(idvalid == false){
+		return false;
+	}
+	if(pwvalid == false){
+		return false;
+	}
+	if(namevalid == false){
+		return false;
+	}
+	if(phonevalid == false){
+		return false;
+	}
+	return true;
+}
+
+function join() {
+	
+	if (!isValid()){
+		return;
+	}
+}
+
+
+
+</script>
+</th:block>
+</html>

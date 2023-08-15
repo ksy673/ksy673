@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.container {width: 360px; margin: 40px auto;}
+.boardContainer {width: 1000px; margin: 40px auto;}
+.header {color: black;}
+.navbar {text-align: center;}
+.navbar-nav {text-align: right; margin-right: 30px;}
+.body{text-align: center;}
+.table.board{min-width: 1000px;}
+.table{table-layout:fixed;border-collapse:collapse;margin:25px 0;font-family:sans-serif;min-width:360px;box-shadow:0 0 20px rgba(0,0,0,0.15)}
+.table:first-child tr:first-child td:first-child{width:50px}
+.table:first-child tr:first-child td:nth-child(2){width:700px}
+.table thead tr{background-color:#d070fb;color:#ffffff;text-align:center}
+.table thead td,.table tbody td{padding:12px 15px}
+.table.label label{background-color:#009879;color:#ffffff;text-align:left;padding:7px 13px;font-size:20px;font-weight:bold;margin:12px;display:inline-block;width:107px}
+.table.input input[type=text],.table.input input[type=password],.table.input textarea{width:80%;padding:10px 22px;margin:10px 5px;box-sizing:border-box;border-radius:10px}
+.readonly{background-color:#dddddd}img.star{width:20px}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http//www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/main}"
+>
+<th:block layout : fragemnt = "content">
+	<input type = "text" id = "InputTest" oninput="function();">
+	
+</th:block>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http//www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/main}"
+>
+
+<th:block layout:fragment ="content">
+<div class="boardContainer">
+	<div class="body">
+		<div>
+			<h1>수정페이지</h1>
+		</div>
+		<form action="/user/join" method = "post" id ="userInfo">
+			<table class="table board">
+				<thead>
+					<tr>
+						<td>수정</td>
+					</tr>
+				</thead>
+				<tbody>
+					<span th:text ="${userInfo.userId}"></span>
+					<tr>
+					<td><label for = "user_id"><span>아이디</span></label>
+					<input type="text" id = "user_id" name="userId"></td>
+					<div id = "idCheck"></div>
+					</tr>
+					<tr>
+						<td><label for = "Password"><span>비밀번호</span></label>
+						<input type="password" id="Password" name="userPassword"></td>
+						<div id = "pwCheck"></div>
+					</tr>
+					<tr>
+						<td><label for = "Password"><span>비밀번호 체크</span></label>
+						<input type="password" id="Password2"></td>
+						<div id = "pwOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "User_name"><span>이름</span></label>
+						<input type="text" id = "User_name" name="userName"></td>
+						<div id = "nameOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "address"><span>주소</span></label> 
+						<input type="text" id = "address" name="address"></td>
+					</tr>
+					<tr>
+						<td><label for = "phone"><span>핸드폰</span></label> 
+						<input type="text" id = "phone" name="phone"></td>
+						<div id = "phoneOver"></div>
+					</tr>
+					<tr>
+						<td><label for = "email"><span>이메일</span></label>
+						<input type="text" id = "email" name="email"></td>
+					</tr>
+				</tbody>
+			</table>
+			<button type='button' onclick = "join();">가입</button>
+			<input type="button" id = "back_btn" value="취소">
+		</form>
+	</div>
+	
+</div>
+</th:block>
+</html>

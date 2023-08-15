@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http//www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/main}"
+>
+<th:block layout:fragment="content">
+    oninput<input type="text" id="InputTest" oninput="MyFunction();">
+
+    onchange<input type="text" id="ChangeTest" onchange="MyFunction2();">
+
+    <p id="demo"></p>
+<script th:inline="javascript">
+    $(function() {
+
+
+    });
+    function MyFunction() {
+        console.log("oninput event");
+    }
+
+    function MyFunction2() {
+        console.log("onChange event")
+    }
+
+</script>
+</th:block>
+</html>

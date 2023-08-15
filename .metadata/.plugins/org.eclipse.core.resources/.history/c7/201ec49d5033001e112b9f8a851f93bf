@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.board.www.repository.UserRepository">
+
+	<resultMap id="UserDtoResultMap" type="UserDto">
+		<result property="userId" column="USER_ID"/>
+		<result property="userPassword" column="USER_PASSWORD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="email" column="EMAIL"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+	</resultMap>
+	
+	<select id = "idCheck" resultType = "String">
+	SELECT
+		USER_ID
+	FROM
+		USER
+	WHERE
+		USER_ID = #{userId}
+	
+	</select>
+	
+<!-- 자바의 변수명은 #{"값"} 으로 지정할것 SQL은 값만 넣어도됨 -->
+	<insert id="joinUser" parameterType="UserDto">
+		INSERT INTO USER (
+			USER_ID,
+			USER_PASSWORD,
+			USER_NAME,
+			PHONE,
+			ADDRESS,
+			EMAIL
+		) VALUES (
+			#{userId},
+			#{userPassword},
+			#{userName},
+			#{phone},
+			#{address},
+			#{email}
+		)
+	</insert>
+	
+	<select id = "login" parameterType = "String" resultType = "UserDto">
+		SELECT
+			*
+		FROM
+			USER
+		WHERE
+			USER_ID = #{userId}
+	</select>
+	
+</mapper>

@@ -1,0 +1,17 @@
+package com.board.www.repository;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import com.board.www.dto.UserDto;
+
+@Mapper
+@Repository
+public interface UserRepository {
+
+   int joinUser(UserDto userDto);
+
+	String idCheck(String userId);
+
+	UserDto login(String userId);
+}
